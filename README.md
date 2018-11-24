@@ -19,7 +19,7 @@ This java program is used to check login register user to mysql database and log
 - MySQL
 
 ## Steps to build the image
-1. git clone <git url>
+1. git clone https://github.com/muralindia/java_login_tomcat_mysql.git
 2. cd java_login_tomcat_mysql
 3. mvn package    (ensure maven is installed, else apt-get install -y maven and then mvn package)
 4. The above successfull executation will create folder target with files containing account-1.0-SNAPSHOT.war, etc.
