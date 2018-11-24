@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: application-deployment
+  labels:
+    app: login-application
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      name: app-pod
+      app: login-application
+  template:
+    metadata:
+      name: application
+      labels:
+        name: app-pod
+        app: login-application
+    spec:
+      containers:
+      - name: login-app
+        #image: muralindia/java_app_test1:1.1
+        image: muralindia/java_login_tomcat_mysql:1.0 
+        ports:
+        - containerPort: 8080 
+# autohealing
+        readinessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 20
