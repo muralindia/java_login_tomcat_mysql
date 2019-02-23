@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: osmo-napp-deployment
+    labels: 
+        app: osmo-node-app
+spec:
+  replicas: 2
+  selector: 
+        matchLabels:
+                name: osmo-app
+                app: osmo-node-app
+  template:
+    metadata:
+      name: app
+      labels: 
+        name: osmo-app
+        app: osmo-node-app
+    spec:
+      containers:
+      - name: osmo
+        image: muralindia/osmo:1.0
+        ports:
+        - containerPort: 3008
+        volumeMounts:
+        - name: persistent-volume
+          mountPath: /usr/src/app/logs
+      volumes:
+      - name: persistent-volume
+        hostPath:
+          path: /opt/logs
+          type: DirectoryOrCreate
+
